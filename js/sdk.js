@@ -1,4 +1,5 @@
 const SDK = {
+  //SDK = software Development kit
   serverURL: "http://dis-bookstore.herokuapp.com/api",
   request: (options, cb) => {
 
