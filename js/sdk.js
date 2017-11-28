@@ -1,130 +1,167 @@
 const SDK = {
-  //SDK = software Development kit
-  serverURL: "http://dis-bookstore.herokuapp.com/api",
-  request: (options, cb) => {
+    //SDK = software Development kit
+    serverURL: "http://localhost:8080/api",
+    request: (options, cb) => {
 
-    let headers = {};
-    if (options.headers) {
-      Object.keys(options.headers).forEach((h) => {
-        headers[h] = (typeof options.headers[h] === 'object') ? JSON.stringify(options.headers[h]) : options.headers[h];
-      });
-    }
+        let headers = {};
+        if (options.headers) {
+            Object.keys(options.headers).forEach((h) => {
+                headers[h] = (typeof options.headers[h] === 'object') ? JSON.stringify(options.headers[h]) : options.headers[h];
+            });
+        }
 
-    $.ajax({
-      url: SDK.serverURL + options.url,
-      method: options.method,
-      headers: headers,
-      contentType: "application/json",
-      dataType: "json",
-      data: JSON.stringify(options.data),
-      success: (data, status, xhr) => {
-        cb(null, data, status, xhr);
-      },
-      error: (xhr, status, errorThrown) => {
-        cb({xhr: xhr, status: status, error: errorThrown});
-      }
-    });
-
-  },
-  Book: {
-    addToBasket: (book) => {
-      let basket = SDK.Storage.load("basket");
-
-      //Has anything been added to the basket before?
-      if (!basket) {
-        return SDK.Storage.persist("basket", [{
-          count: 1,
-          book: book
-        }]);
-      }
-
-      //Does the book already exist?
-      let foundBook = basket.find(b => b.book.id === book.id);
-      if (foundBook) {
-        let i = basket.indexOf(foundBook);
-        basket[i].count++;
-      } else {
-        basket.push({
-          count: 1,
-          book: book
+        $.ajax({
+            url: SDK.serverURL + options.url,
+            method: options.method,
+            headers: headers,
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify(options.data),
+            success: (data, status, xhr) => {
+                cb(null, data, status, xhr);
+            },
+            error: (xhr, status, errorThrown) => {
+                cb({xhr: xhr, status: status, error: errorThrown});
+            }
         });
-      }
 
-      SDK.Storage.persist("basket", basket);
     },
-    findAll: (cb) => {
-      SDK.request({
-        method: "GET",
-        url: "/books",
-        headers: {
-          filter: {
-            include: ["authors"]
-          }
-        }
-      }, cb);
+    Quiz: {
+        create: (quizTitle, quizId, cb)=> {
+            SDK.request({
+                data: {
+                    quizTitle: quizTitle,
+                    quizId: quizId
+                },
+                method: "POST",
+                url: "/quiz",
+                headers: {
+                    authorization: SDK.Storage.load("token"),
+                },
+            },(err, user) => {
+                    if (err) return cb(err);
+            });
+        },
+
+        loadQuizzes: (courseId, callback) => {
+        SDK.request({
+            method: "GET",
+            url: "/quiz/" + courseId,
+            headers: {authorization: SDK.Storage.load("token"),
+            },
+        }, (err, data) => {
+            if(err) return callback(err);
+            callback(null, data);
+            console.log(data);
+        });
     },
-    create: (data, cb) => {
-      SDK.request({
-        method: "POST",
-        url: "/books",
-        data: data,
-        headers: {authorization: SDK.Storage.load("tokenId")}
-      }, cb);
-    }
-  },
-  Author: {
-    findAll: (cb) => {
-      SDK.request({method: "GET", url: "/authors"}, cb);
-    }
-  },
-  Order: {
-    create: (data, cb) => {
-      SDK.request({
-        method: "POST",
-        url: "/orders",
-        data: data,
-        headers: {authorization: SDK.Storage.load("tokenId")}
-      }, cb);
+        createQuiz: (quizTitle, courseID, cb) => {
+            SDK.request({
+                data:{
+                    quizTitle:quizTitle,
+                    courseID: courseID,
+
+                },
+                method: "POST",
+                url:"/quiz",
+                headers: {
+                    authorization: SDK.Storage.load("myToken"),
+                }
+            },cb)
+        },
+        createOption: (option, optionToQuestionId, isCorrect, callback) => {
+            console.log(option + optionToQuestionId + isCorrect);
+            SDK.request({
+                data: {
+                    option: option,
+                    optionToQuestionId: optionToQuestionId,
+                    isCorrect: isCorrect
+                },
+                method: "POST",
+                url: "/option",
+                headers: {
+                    authorization: SDK.Storage.load("myToken"),
+                }
+            }, (err, data) => {
+                if (err) return callback(err);
+                callback(null, data);
+            })
+        },
     },
-    findMine: (cb) => {
-      SDK.request({
-        method: "GET",
-        url: "/orders/" + SDK.User.current().id + "/allorders",
-        headers: {
-          authorization: SDK.Storage.load("tokenId")
-        }
-      }, cb);
-    }
-  },
+    Course: {
+        loadCourses: (cb) => {
+            SDK.request({
+                method: "GET",
+                url: "/course",
+                headers: {authorization: SDK.Storage.load("token"),
+                },
+            }, (err, user) => {
+                if (err) return cb(err);
+
+                cb(null, user);
+            });
+        },
+
+    },
   User: {
+      signUp: (newUsername, newPassword, cb) => {
+          SDK.request({
+              data: {
+                  newUsername: newUsername,
+                  newPassword: newPassword
+              },
+              url: "/user/signup",
+              method: "POST"
+          }, (err, data) => {
+              if (err) return cb(err);
+              cb(null, data);
+          });
+      },
+      loadCurrentUser: (cb) => {
+          SDK.request({
+              method: "GET",
+              url: "/user/myuser",
+              headers: {
+                  authorization: SDK.Storage.load("token"),
+              },
+          }, (err, user) => {
+              if (err) return cb(err);
+              SDK.Storage.persist("myUser", user);
+              cb(null, user);
+          });
+
+      },
     findAll: (cb) => {
       SDK.request({method: "GET", url: "/staffs"}, cb);
     },
-    current: () => {
-      return SDK.Storage.load("user");
-    },
+      currentUser: () => {
+          const loadedUser = SDK.Storage.load("myUser");
+          return loadedUser.currentUser;
+      },
+
     logOut: () => {
-      SDK.Storage.remove("tokenId");
+      SDK.Storage.remove("token");
       SDK.Storage.remove("userId");
       SDK.Storage.remove("user");
       window.location.href = "index.html";
     },
-    login: (email, password, cb) => {
+    login: (username, password, cb) => {
       SDK.request({
         data: {
-          email: email,
+          username: username,
           password: password
         },
-        url: "/users/login?include=user",
+        url: "/user/login",
         method: "POST"
       }, (err, data) => {
 
         //On login-error
         if (err) return cb(err);
 
-        SDK.Storage.persist("tokenId", data.id);
-        SDK.Storage.persist("userId", data.userId);
-        SDK.Storage.persist("user", data.user);
+        //localStorage.setItem("token", data);
+        SDK.Storage.persist("token", data);
+        //SDK.Storage.persist("userId", data.userId);
+        //SDK.Storage.persist("user", data.user);
 
         cb(null, data);
 
@@ -132,24 +169,39 @@ const SDK = {
     },
     loadNav: (cb) => {
       $("#nav-container").load("nav.html", () => {
-        const currentUser = SDK.User.current();
-        if (currentUser) {
-          $(".navbar-right").html(`
-            <li><a href="my-page.html">Your orders</a></li>
-            <li><a href="#" id="logout-link">Logout</a></li>
+        SDK.User.loadCurrentUser((err, data) => {
+            let currentUser = JSON.parse(data);
+            console.log(2, currentUser);
+            if (currentUser.type === 2) {
+                $(".navbar-right").html(`
+             <li><a href="score.html">Score</a></li>
+             <li><a href="courses.html">Fag</a></li>
+             <li><a href="#" id="logout-link" onclick="SDK.User.logOut()">Logout</a> </li>
+             
           `);
-        } else {
-          $(".navbar-right").html(`
+            }
+            else if (currentUser.type === 1){
+                $(".navbar-right").html(`
+             <li><a  href="courses.html">Opret quiz</a></li>
+             <li><a href="#" id="logout-link" onclick="SDK.User.logOut()">Logout</a> </li>
+           
+             `);
+            }
+            else {
+                $(".navbar-right").html(`
+            <li><a href="signup.html" onclick="SDK.User.signUp()">Opret bruger<span class="sr-only">(current)</span></a></li>
             <li><a href="login.html">Log-in <span class="sr-only">(current)</span></a></li>
           `);
-        }
-        $("#logout-link").click(() => SDK.User.logOut());
-        cb && cb();
+            }
+            $("#logout-link").click(() => SDK.User.logOut());
+            cb && cb();
+        })
+
       });
     }
   },
   Storage: {
-    prefix: "BookStoreSDK",
+    prefix: "DØKQuizSDK",
     persist: (key, value) => {
       window.localStorage.setItem(SDK.Storage.prefix + key, (typeof value === 'object') ? JSON.stringify(value) : value)
     },

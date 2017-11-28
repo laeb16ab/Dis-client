@@ -7,9 +7,9 @@ $(document).ready(() => {
   const $checkoutActions = $("#checkout-actions");
   const $nothingInBasketContainer = $("#nothing-in-basket-container");
 
-  function loadBasket() {
+  function loadScores() {
     const currentUser = SDK.User.current();
-    const basket = SDK.Storage.load("basket") || [];
+    const score = SDK.Storage.load("score") || [];
     let total = 0;
 
     $nothingInBasketContainer.show();

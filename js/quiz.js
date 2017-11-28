@@ -2,13 +2,13 @@ $(document).ready(() => {
 // når man skal finde et ID = #
 // Når man skal finde en klasse = .
 
-  SDK.User.loadNav();
-  const $bookList = $("#book-list");
+    SDK.User.loadNav();
+   /* const $bookList = $("#book-list");
 
-  SDK.Book.findAll((err, books)=> {
+    SDK.Book.findAll((err, books)=> {
 
-      books.forEach((book)=> {
-          const bookHtml = `
+        books.forEach((book)=> {
+            const bookHtml = `
         <div class="col-lg-4 book-container">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -42,24 +42,24 @@ $(document).ready(() => {
             </div>
         </div>`;
 
-          $bookList.append(bookHtml);
+            $bookList.append(bookHtml);
 
+        });
+        $(".purchase-button").click(function() {
+            $("#purchase-modal").modal("toggle");
+            //Toggle= hvis du er åben --> luk dig, hvis du er lukket --> åben
+
+            const bookId = $(this).data("book-id");
+            const book = books.find((book) => book.id === bookId);
+            SDK.Book.addToBasket(book);
+        });
     });
-      $(".purchase-button").click(function() {
-          $("#purchase-modal").modal("toggle");
-          //Toggle= hvis du er åben --> luk dig, hvis du er lukket --> åben
-
-          const bookId = $(this).data("book-id");
-          const book = books.find((book) => book.id === bookId);
-          SDK.Book.addToBasket(book);
-      });
-  });
     $("#purchase-modal").on("shown.bs.modal", () => {
-      const basket = SDK.Storage.load("basket");
-      const $modalTbody = $("#modal-tbody");
+        const basket = SDK.Storage.load("basket");
+        const $modalTbody = $("#modal-tbody");
 
-      basket.forEach((entry) => {
-          $modalTbody.append(`
+        basket.forEach((entry) => {
+            $modalTbody.append(`
         <tr>
             <td>
                 <img src="${entry.book.imgUrl}" height="60"/>
@@ -70,8 +70,8 @@ $(document).ready(() => {
             <td>kr. 0</td>
         </tr>
       `);
-      });
+        });
 
-    });
+    });*/
 
 });
