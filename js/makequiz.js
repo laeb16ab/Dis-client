@@ -2,10 +2,6 @@ $(document).ready(() => {
 
     SDK.User.loadNav();
 
-
-
-
-
         $("#addQuestion-button").click(() => {
             $(".add-quiz").show();
         console.log("clicked");
@@ -23,13 +19,15 @@ $(document).ready(() => {
         console.log("clicked");
             window.location.href = "index.html";
     });
-    $("#makequiz-button").click(() => {
+    $("#setTitle-button").click(() => {
+        console.log("title button clicked")
        const quizTitle = $("#quizTitle").val();
        const courseId = 2;
 
         SDK.Quiz.createQuiz(quizTitle, courseId, (err, data) => {
 
         });
+        //$("#")
     });
 
 });
