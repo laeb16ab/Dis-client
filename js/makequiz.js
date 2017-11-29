@@ -7,7 +7,7 @@ $(document).ready(() => {
         console.log("clicked");
             $("#questionsContainer").append(
                 "<br>Question</label><br>" +
-                "<input type='text'class='form-control' name='question' placeholder='question title'>"+
+                "<input type='text' class='form-control' name='question' placeholder='question title'>"+
                 "<br>Answers</br>"+
                 "<input type='text' class='form-control' name='question1' trueQuestion='true' placeholder='correct answer'>" +
                 "<input type='text' class='form-control' name='question2'>" +
@@ -20,7 +20,7 @@ $(document).ready(() => {
             window.location.href = "index.html";
     });
     $("#setTitle-button").click(() => {
-        console.log("title button clicked")
+        console.log("title button clicked");
        const quizTitle = $("#quizTitle").val();
        const courseId = 2;
 
