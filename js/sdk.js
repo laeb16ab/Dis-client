@@ -43,15 +43,15 @@ const SDK = {
             });
         },
 
-        loadQuizzes: (courseId, callback) => {
+        loadQuizzes: (courseId, cb) => {
         SDK.request({
             method: "GET",
             url: "/quiz/" + courseId,
             headers: {authorization: SDK.Storage.load("token"),
             },
         }, (err, data) => {
-            if(err) return callback(err);
-            callback(null, data);
+            if(err) return cb(err);
+            cb(null, data);
             console.log(data);
         });
     },
@@ -60,7 +60,6 @@ const SDK = {
                 data:{
                     quizTitle:quizTitle,
                     courseID: courseID,
-
                 },
                 method: "POST",
                 url:"/quiz",
@@ -69,7 +68,7 @@ const SDK = {
                 }
             },cb)
         },
-        createOption: (option, optionToQuestionId, isCorrect, callback) => {
+        createOption: (option, optionToQuestionId, isCorrect, cb) => {
             console.log(option + optionToQuestionId + isCorrect);
             SDK.request({
                 data: {
@@ -83,8 +82,8 @@ const SDK = {
                     authorization: SDK.Storage.load("myToken"),
                 }
             }, (err, data) => {
-                if (err) return callback(err);
-                callback(null, data);
+                if (err) return cb(err);
+                cb(null, data);
             })
         },
     },
@@ -170,7 +169,7 @@ const SDK = {
             }
             else if (currentUser.type === 1){
                 $(".navbar-right").html(`
-             <li><a  href="courses.html">Opret quiz</a></li>
+             <li><a  href="make_quiz.html">Opret quiz</a></li>
              <li><a href="#" id="logout-link" onclick="SDK.User.logOut()">Logout</a> </li>
            
              `);
