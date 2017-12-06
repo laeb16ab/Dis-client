@@ -104,19 +104,6 @@ const SDK = {
 
     },
   User: {
-      signUp: (newUsername, newPassword, cb) => {
-          SDK.request({
-              data: {
-                  newUsername: newUsername,
-                  newPassword: newPassword
-              },
-              url: "/user/signup",
-              method: "POST"
-          }, (err, data) => {
-              if (err) return cb(err);
-              cb(null, data);
-          });
-      },
       loadCurrentUser: (cb) => {
           SDK.request({
               method: "GET",
@@ -172,6 +159,7 @@ const SDK = {
         SDK.User.loadCurrentUser((err, data) => {
             let currentUser = JSON.parse(data);
             console.log(2, currentUser);
+
             if (currentUser.type === 2) {
                 $(".navbar-right").html(`
              <li><a href="score.html">Score</a></li>
@@ -200,6 +188,24 @@ const SDK = {
       });
     }
   },
+    signUp: (newUsername, newPassword, cb) => {
+        console.log(newUsername);
+        console.log(newPassword);
+        SDK.request({
+            data: {
+                username: newUsername,
+                password: newPassword
+            },
+            url: "/user/signup",
+            method: "POST"
+        }, (err, data) => {
+            if (err) return cb(err);
+            cb(null, data);
+        });
+    },
+
+
+
   Storage: {
     prefix: "DØKQuizSDK",
     persist: (key, value) => {
