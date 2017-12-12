@@ -9,6 +9,13 @@ $(document).ready(() => {
         const quizzes = JSON.parse(myQuizzes);
         console.log(quizzes);
 
+        $("#tablehead").append(`<thead>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Created By</th>
+            <th><button class=\"quizCreateBtn btn btn-success pull-left\">Create quiz</button></th>
+        </thead>`);
+
         $("#quizList").append("<thead>\n" +
             "<th>Quiz Titel</th>\n" +
             "<th><button class=\"quizCreateBtn btn-primary btn-lg\" >Create quiz</button></th>\n" +

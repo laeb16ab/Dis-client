@@ -26,6 +26,7 @@ $(document).ready(() => {
 
         SDK.Quiz.createQuiz(quizTitle, courseId, (err, data) => {
 
+
         });
         //$("#")
     });
