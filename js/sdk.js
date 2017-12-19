@@ -86,7 +86,6 @@ const SDK = {
                 })
             },
         createOption: (option, optionToQuestionId, isCorrect, cb) => {
-            console.log(option + optionToQuestionId + isCorrect);
             SDK.request({
                 data: {
                     option: option,

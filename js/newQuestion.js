@@ -19,17 +19,13 @@ $(document).ready(() => {
         else {
             SDK.Quiz.createQuestion(question, quizId, (err, data) => {
                 var newQuestion = JSON.parse(data);
-                SDK.Storage.persist("myQuestionId", newQuestion.optionToQuestionId);
-
+                console.log(newQuestion.questionId);
                 console.log("clicked");
-                const option1 = $("#option1").val();
-                const questionId = SDK.Storage.load("myQuestionId");
-                const optionToQuestionId = newQuestion.optionToQuestionId;
-                //const isCorrect = $("#isCorrect").val();
-                const correctOption = $("#correctOption").val();
-                const wrongOption1 = $("#wrongOption1").val();
-                const wrongOption2 = $("#wrongOption2").val();
-                const wrongOption3 = $("#wrongOption3").val();
+                const optionToQuestionId = newQuestion.questionId;
+                const correctOption = $("#option1").val();
+                const wrongOption1 = $("#option2").val();
+                const wrongOption2 = $("#option3").val();
+                const wrongOption3 = $("#option4").val();
 
                 if (!correctOption || !wrongOption1 || !wrongOption2 || !wrongOption3) {
                     alert("alle svar muligheder skal udfyldes")
@@ -37,17 +33,17 @@ $(document).ready(() => {
                     var isCorrect = 1;
 
                     SDK.Quiz.createOption(correctOption, optionToQuestionId, isCorrect, (err, data) => {
+                        $("#option1").val("");
 
-                        $("#correctOption").val("");
+                        var isCorrect = 0;
+                        SDK.Quiz.createOption(wrongOption1, optionToQuestionId, isCorrect, (err, data) => {
+                            $("#option2").val("");
 
-                        SDK.Quiz.createOption(wrongOption1, optionToQuestionId, isCorrect = 0, (err, data) => {
-                            $("#wrongOption1").val("");
+                            SDK.Quiz.createOption(wrongOption2, optionToQuestionId, isCorrect, (err, data) => {
+                                $("#option3").val("");
 
-                            SDK.Quiz.createOption(wrongOption2, optionToQuestionId, isCorrect = 0, (err, data) => {
-                                $("#wrongOption2").val("");
-
-                                SDK.Quiz.createOption(wrongOption3, optionToQuestionId, isCorrect = 0, (err, data) => {
-                                    $("#wrongOption3").val("");
+                                SDK.Quiz.createOption(wrongOption3, optionToQuestionId, isCorrect, (err, data) => {
+                                    $("#option4").val("");
                                 });
 
                             });
