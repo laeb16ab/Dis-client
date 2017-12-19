@@ -24,7 +24,7 @@ $(document).ready(() => {
                 console.log("clicked");
                 const option1 = $("#option1").val();
                 const questionId = SDK.Storage.load("myQuestionId");
-                const optionToQuestionId = createQuestion.parse(data);
+                const optionToQuestionId = newQuestion.optionToQuestionId;
                 //const isCorrect = $("#isCorrect").val();
                 const correctOption = $("#correctOption").val();
                 const wrongOption1 = $("#wrongOption1").val();
