@@ -43,7 +43,8 @@ const SDK = {
             });
         },
 
-        loadQuizzes: (courseId, cb) => {
+        loadQuizzes: (cb) => {
+            const courseId = SDK.Storage.load("myCourseId");
         SDK.request({
             method: "GET",
             url: "/quiz/" + courseId,
@@ -64,7 +65,7 @@ const SDK = {
                 method: "POST",
                 url:"/quiz",
                 headers: {
-                    authorization: SDK.Storage.load("myToken"),
+                    authorization: SDK.Storage.load("token"),
                 }
             },cb)
         },
@@ -79,7 +80,7 @@ const SDK = {
                 method: "POST",
                 url: "/option",
                 headers: {
-                    authorization: SDK.Storage.load("myToken"),
+                    authorization: SDK.Storage.load("token"),
                 }
             }, (err, data) => {
                 if (err) return cb(err);

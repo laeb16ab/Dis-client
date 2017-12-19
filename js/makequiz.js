@@ -19,16 +19,5 @@ $(document).ready(() => {
         console.log("clicked");
             window.location.href = "index.html";
     });
-    $("#setTitle-button").click(() => {
-        console.log("title button clicked");
-       const quizTitle = $("#quizTitle").val();
-       const courseId = 2;
-
-        SDK.Quiz.createQuiz(quizTitle, courseId, (err, data) => {
-
-
-        });
-        //$("#")
-    });
 
 });
