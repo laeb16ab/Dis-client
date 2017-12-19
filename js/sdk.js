@@ -104,13 +104,12 @@ const SDK = {
             })
         },
         deleteQuiz: (cb) => {
-            const myQuizId = SDK.Storage.load("myQuizId");
-            const quizId = myQuizId.quizId;
+            const MyQuizId = SDK.Storage.load("MyQuizId");
+            const quizId = MyQuizId.quizId;
 
             SDK.request({
-
                 method: "DELETE",
-                url: "/quiz/deleteId" + quizId,
+                url: "/quiz" + quizId,
 
                     headers: {
                         authorization: SDK.Storage.load("token")

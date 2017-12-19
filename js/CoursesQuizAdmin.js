@@ -36,7 +36,7 @@ $(document).ready(() => {
                 for (var i = 0; i < quizzes.length; i++) {
                     if (title === quizzes[i].quizTitle) {
 
-                        SDK.Storage.persist("myQuizId", quizzes[i]);
+                        SDK.Storage.persist("quizId", quizzes[i]);
                     }
                 }
 
