@@ -53,7 +53,7 @@ $(document).ready(() => {
             });
         }
     });
-    $("#make-button")(() => {
+    $("#make-button").click (() => {
         console.log("clicked");
         window.location.href = "CoursesQuizAdmin.html";
     });
