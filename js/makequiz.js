@@ -15,9 +15,5 @@ $(document).ready(() => {
                 "<input type='text' class='form-control' name='question4'><br>"
             )
     });
-        $("#cancel-button").click(() => {
-        console.log("clicked");
-            window.location.href = "index.html";
-    });
 
 });

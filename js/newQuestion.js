@@ -53,5 +53,9 @@ $(document).ready(() => {
             });
         }
     });
+    $("#make-button")(() => {
+        console.log("clicked");
+        window.location.href = "CoursesQuizAdmin.html";
+    });
 });
 
