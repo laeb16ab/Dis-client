@@ -103,13 +103,20 @@ const SDK = {
                 cb(null, data);
             })
         },
-        deleteQuiz: (quizId, questionId, optionId, cb) => {
+        deleteQuiz: (cb) => {
+            const myQuizId = SDK.Storage.load("myQuizId");
+            const quizId = myQuizId.quizId;
+
             SDK.request({
+
                 method: "DELETE",
-                url: "/quiz/" + quizId,
-                url: "/question/" + questionId,
-                url: "/option/" + optionId,
-            }, (err, data) => {
+                url: "/quiz/deleteId" + quizId,
+
+                    headers: {
+                        authorization: SDK.Storage.load("token")
+                    },
+            },
+                (err, data) => {
                 if (err) return cb(err);
                 cb(null, data);
             });
