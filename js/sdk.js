@@ -109,7 +109,7 @@ const SDK = {
 
             SDK.request({
                 method: "DELETE",
-                url: "/quiz" + quizId,
+                url: "/quiz/" + quizId,
 
                     headers: {
                         authorization: SDK.Storage.load("token")
