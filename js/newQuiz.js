@@ -13,13 +13,11 @@ $("#setTitle-button").click(() => {
     const courseId = SDK.Storage.load("myCourseId");
 
     SDK.Quiz.createQuiz(quizTitle, courseId, (err, data) => {
+        var newQuiz = JSON.parse(data);
 
-        const quizId = this.id;
-        const myId = parseInt(quizId);
-        console.log(myId);
-        SDK.Storage.persist("myQuizId",myId);
+        const quizId = newQuiz.quizId;
 
-        var createQuiz = JSON.parse(data);
+        SDK.Storage.persist("myQuizId",quizId);
 
         window.location.href="newQuestion.html"
     });
