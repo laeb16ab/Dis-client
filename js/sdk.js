@@ -56,11 +56,11 @@ const SDK = {
             console.log(data);
         });
     },
-        createQuiz: (quizTitle, courseID, cb) => {
+        createQuiz: (quizTitle, courseId, cb) => {
             SDK.request({
                 data:{
                     quizTitle:quizTitle,
-                    courseID: courseID,
+                    courseId: courseId,
                 },
                 method: "POST",
                 url:"/quiz",
@@ -68,6 +68,24 @@ const SDK = {
                     authorization: SDK.Storage.load("token"),
                 }
             },cb)
+        },
+        question: {
+            createQuestion: (question, quizId, cb) => {
+                SDK.request({
+                    data: {
+                        question: question,
+                        questionToQuizId: quizId
+                    },
+                    url: "/question",
+                    method: "POST",
+                    headers: {
+                        authorization: SDK.Storage.load("token"),
+                    }
+                }, (err, data) => {
+                    if (err) return cb(err);
+                    cb(null, data);
+                })
+            },
         },
         createOption: (option, optionToQuestionId, isCorrect, cb) => {
             console.log(option + optionToQuestionId + isCorrect);
@@ -118,12 +136,10 @@ const SDK = {
           });
 
       },
-    findAll: (cb) => {
-      SDK.request({method: "GET", url: "/staffs"}, cb);
-    },
       currentUser: () => {
           const loadedUser = SDK.Storage.load("myUser");
-          return loadedUser.currentUser;
+          console.log(loadedUser);
+          return loadedUser;
       },
 
     logOut: () => {
@@ -162,6 +178,7 @@ const SDK = {
 
             if (currentUser.type === 2) {
                 $(".navbar-right").html(`
+             <li><a href="profile.html">Din profil</a></li>
              <li><a href="score.html">Score</a></li>
              <li><a href="courses.html">Fag</a></li>
              <li><a href="#" id="logout-link" onclick="SDK.User.logOut()">Logout</a> </li>
@@ -170,7 +187,8 @@ const SDK = {
             }
             else if (currentUser.type === 1){
                 $(".navbar-right").html(`
-             <li><a  href="make_quiz.html">Opret quiz</a></li>
+             <li><a href="profile.html">Din profil</a></li>
+             <li><a  href="courses.html">Opret quiz</a></li>
              <li><a href="#" id="logout-link" onclick="SDK.User.logOut()">Logout</a> </li>
            
              `);

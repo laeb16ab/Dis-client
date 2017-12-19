@@ -16,12 +16,12 @@ $("#setTitle-button").click(() => {
 
         const quizId = this.id;
         const myId = parseInt(quizId);
-        console.log(myId);
+        //console.log(myId);
         SDK.Storage.persist("myQuizId",myId);
 
         var createQuiz = JSON.parse(data);
 
-        window.location.href="make_quiz.html"
+        window.location.href="newQuestion.html"
     });
 
 
