@@ -13,7 +13,7 @@ $(document).ready(() => {
        const question = $("#question").val();
        const quizId = SDK.Storage.load("myQuizId");
 
-       SDK.question.createQuestion(question, quizId, (err, data) => {
+       SDK.Quiz.createQuestion(question, quizId, (err, data) => {
 
            const questionId = this.id;
            const myId = parseInt(questionId);
@@ -21,6 +21,23 @@ $(document).ready(() => {
            SDK.Storage.persist("myQuestionId", myId);
 
            var createQuestion = JSON.parse(data);
+
+           $("#createOption-button").click(() => {
+               console.log("clicked");
+               const option = $("#option").val();
+               const questionId = SDK.Storage.load("myQuestionId");
+               const optionToQuestionId = createQuestion.parse(data);
+               const isCorrect = $("#isCorrect").val();
+
+               SDK.Quiz.createOption(option, optionToQuestionId, isCorrect, (err, data) => {
+
+                   const questionId = this.id;
+                   const myId = parseInt(questionId);
+                   console.log(myId);
+                   SDK.Storage.persist("myQuestionId", myId);
+
+                   var createQuestion = JSON.parse(data);
+           });
 
            window.location.href = "newQuestion.html"
        });

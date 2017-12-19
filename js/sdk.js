@@ -69,7 +69,6 @@ const SDK = {
                 }
             },cb)
         },
-        question: {
             createQuestion: (question, quizId, cb) => {
                 SDK.request({
                     data: {
@@ -86,14 +85,13 @@ const SDK = {
                     cb(null, data);
                 })
             },
-        },
         createOption: (option, optionToQuestionId, isCorrect, cb) => {
             console.log(option + optionToQuestionId + isCorrect);
             SDK.request({
                 data: {
                     option: option,
                     optionToQuestionId: optionToQuestionId,
-                    isCorrect: isCorrect
+                    isCorrect: isCorrect,
                 },
                 method: "POST",
                 url: "/option",
