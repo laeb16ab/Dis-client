@@ -27,7 +27,7 @@ const SDK = {
 
     },
     Quiz: {
-        create: (quizTitle, quizId, cb)=> {
+        create: (quizTitle, quizId, cb) => {
             SDK.request({
                 data: {
                     quizTitle: quizTitle,
@@ -38,53 +38,54 @@ const SDK = {
                 headers: {
                     authorization: SDK.Storage.load("token"),
                 },
-            },(err, user) => {
-                    if (err) return cb(err);
+            }, (err, user) => {
+                if (err) return cb(err);
             });
         },
 
         loadQuizzes: (cb) => {
             const courseId = SDK.Storage.load("myCourseId");
-        SDK.request({
-            method: "GET",
-            url: "/quiz/" + courseId,
-            headers: {authorization: SDK.Storage.load("token"),
-            },
-        }, (err, data) => {
-            if(err) return cb(err);
-            cb(null, data);
-            console.log(data);
-        });
-    },
+            SDK.request({
+                method: "GET",
+                url: "/quiz/" + courseId,
+                headers: {
+                    authorization: SDK.Storage.load("token"),
+                },
+            }, (err, data) => {
+                if (err) return cb(err);
+                cb(null, data);
+                console.log(data);
+            });
+        },
         createQuiz: (quizTitle, courseId, cb) => {
             SDK.request({
-                data:{
-                    quizTitle:quizTitle,
+                data: {
+                    quizTitle: quizTitle,
                     courseId: courseId,
                 },
                 method: "POST",
-                url:"/quiz",
+                url: "/quiz",
                 headers: {
                     authorization: SDK.Storage.load("token"),
                 }
-            },cb)
+            }, cb)
         },
-            createQuestion: (question, quizId, cb) => {
-                SDK.request({
-                    data: {
-                        question: question,
-                        questionToQuizId: quizId
-                    },
-                    url: "/question",
-                    method: "POST",
-                    headers: {
-                        authorization: SDK.Storage.load("token"),
-                    }
-                }, (err, data) => {
-                    if (err) return cb(err);
-                    cb(null, data);
-                })
-            },
+        createQuestion: (question, quizId, cb) => {
+            SDK.request({
+                data: {
+                    question: question,
+                    questionToQuizId: quizId
+                },
+                url: "/question",
+                method: "POST",
+                headers: {
+                    authorization: SDK.Storage.load("token"),
+                }
+            }, (err, data) => {
+                if (err) return cb(err);
+                cb(null, data);
+            })
+        },
         createOption: (option, optionToQuestionId, isCorrect, cb) => {
             SDK.request({
                 data: {
@@ -105,13 +106,14 @@ const SDK = {
         deleteQuiz: (quizId, questionId, optionId, cb) => {
             SDK.request({
                 method: "DELETE",
-                url:"/quiz/"+ quizId,
-                url:"/question/" + questionId,
-                url:"/option/" + optionId,
+                url: "/quiz/" + quizId,
+                url: "/question/" + questionId,
+                url: "/option/" + optionId,
             }, (err, data) => {
                 if (err) return cb(err);
-                cb(null,data);
-            })
+                cb(null, data);
+            });
+        },
     },
 
     Course: {
