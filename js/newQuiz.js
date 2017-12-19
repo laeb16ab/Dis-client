@@ -4,7 +4,7 @@ $(document).ready(() => {
 
     $("#cancel-button").click(() => {
         console.log("clicked");
-        window.location.href = "index.html";
+        window.location.href = "CoursesQuizAdmin.html";
     });
 
 $("#setTitle-button").click(() => {

@@ -19,7 +19,7 @@ $(document).ready(() => {
         else {
             SDK.Quiz.createQuestion(question, quizId, (err, data) => {
                 var newQuestion = JSON.parse(data);
-                SDK.Storage.persist("myQuestionId", newQuestion.questionId);
+                SDK.Storage.persist("myQuestionId", newQuestion.optionToQuestionId);
 
                 console.log("clicked");
                 const option1 = $("#option1").val();
@@ -53,9 +53,9 @@ $(document).ready(() => {
                             });
                         });
                     });
-                };
+                }
             });
-        };
+        }
     });
 });
 
