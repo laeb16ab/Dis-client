@@ -102,7 +102,18 @@ const SDK = {
                 cb(null, data);
             })
         },
+        deleteQuiz: (quizId, questionId, optionId, cb) => {
+            SDK.request({
+                method: "DELETE",
+                url:"/quiz/"+ quizId,
+                url:"/question/" + questionId,
+                url:"/option/" + optionId,
+            }, (err, data) => {
+                if (err) return cb(err);
+                cb(null,data);
+            })
     },
+
     Course: {
         loadCourses: (cb) => {
             SDK.request({
