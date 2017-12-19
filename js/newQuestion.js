@@ -13,54 +13,49 @@ $(document).ready(() => {
         const question = $("#question").val();
         const quizId = SDK.Storage.load("myQuizId");
 
-        SDK.Quiz.createQuestion(question, quizId, (err, data) => {
-            var newQuestion = JSON.parse(data);
-            SDK.Storage.persist("myQuestionId", newQuestion.questionId);
+        if (!question) {
+            alert("Du har ikke indtastet noget");
+        }
+        else {
+            SDK.Quiz.createQuestion(question, quizId, (err, data) => {
+                var newQuestion = JSON.parse(data);
+                SDK.Storage.persist("myQuestionId", newQuestion.questionId);
 
-            $("#createOption-button").click(() => {
                 console.log("clicked");
-                const option = $("#option").val();
+                const option1 = $("#option1").val();
                 const questionId = SDK.Storage.load("myQuestionId");
                 const optionToQuestionId = createQuestion.parse(data);
                 const isCorrect = $("#isCorrect").val();
+                const correctOption = $("#correctOption").val();
+                const wrongOption1 = $("#wrongOption1").val();
+                const wrongOption2 = $("#wrongOption2").val();
+                const wrongOption3 = $("#wrongOption3").val();
 
-                SDK.Quiz.createOption(option, optionToQuestionId, isCorrect, (err, data) => {
+                if (!correctOption || !wrongOption1 || !wrongOption2 || !wrongOption3) {
+                    alert("alle svar muligheder skal udfyldes")
+                } else {
+                    var isCorrect = 1;
 
-                    const questionId = this.id;
-                    const myId = parseInt(questionId);
-                    console.log(myId);
-                    SDK.Storage.persist("myQuestionId", myId);
-                    console.log(data);
+                    SDK.Quiz.createOption(correctOption, optionToQuestionId, isCorrect, (err, data) => {
 
-                    //var createQuestion = JSON.parse(data);
-                });
+                        $("#correctOption").val("");
 
-                window.location.href = "newQuestion.html"
+                        SDK.Quiz.createOption(wrongOption1, optionToQuestionId, isCorrect = 0, (err, data) => {
+                            $("#wrongOption1").val("");
+
+                            SDK.Quiz.createOption(wrongOption2, optionToQuestionId, isCorrect = 0, (err, data) => {
+                                $("#wrongOption2").val("");
+
+                                SDK.Quiz.createOption(wrongOption3, optionToQuestionId, isCorrect = 0, (err, data) => {
+                                    $("#wrongOption3").val("");
+                                });
+
+                            });
+                        });
+                    });
+                };
             });
-
-        });
-
-        $("#addQuestion-button").click(() => {
-            console.log("clicked");
-            const question = $("#question").val();
-            const quizId = SDK.Storage.persist("myQuizId");
-
-
-            SDK.Quiz.question.createQuestion(question, quizId, (err, data) => {
-                console.log("Virker det ?");
-
-                const questionId = this.id;
-                const myId = parseInt(questionId);
-                console.log(myId);
-                SDK.Storage.persist("myQuestion", myId);
-
-                var createQuestion = JSON.parse(data);
-
-                window.location.href = "newQuestion.html"
-
-
-            });
-        })
-
+        };
     });
 });
+
