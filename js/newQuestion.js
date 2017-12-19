@@ -8,20 +8,29 @@ $(document).ready(() => {
         window.location.href = "CoursesQuizAdmin.html";
     });
 
+    $("#createQuestion-button").click(() => {
+       console.log("clicked");
+       const question = $("#question").val();
+       const quizId = SDK.Storage.load("myQuizId");
+
+       SDK.question.createQuestion(question, quizId, (err, data) => {
+
+           const questionId = this.id;
+           const myId = parseInt(questionId);
+           console.log(myId);
+           SDK.Storage.persist("myQuestionId", myId);
+
+           var createQuestion = JSON.parse(data);
+
+           window.location.href = "newQuestion.html"
+       });
+
+    });
+
     $("#addQuestion-button").click(() => {
         console.log("clicked");
         const question = $("#question").val();
         const quizId = SDK.Storage.persist("myQuizId");
-
-        $("#questionsContainer").append(
-            "<br>Question</label><br>" +
-            "<input type='text' class='form-control' name='question' placeholder='question title'>"+
-            "<br>Answers</br>"+
-            "<input type='text' class='form-control' name='question1' trueQuestion='true' placeholder='correct answer'>" +
-            "<input type='text' class='form-control' name='question2'>" +
-            "<input type='text' class='form-control' name='question3'>" +
-            "<input type='text' class='form-control' name='question4'><br>");
-
 
 
         SDK.Quiz.question.createQuestion(question, quizId, (err, data)=> {
