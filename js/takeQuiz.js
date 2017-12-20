@@ -1,13 +1,24 @@
 $(document).ready(() => {
+    $(".user-display").hide();
+    $(".admin-display").hide();
 
+    SDK.User.loadNav();
+    const currentUser = SDK.User.currentUser();
 
-    const quizId = SDK.Quiz("quizId");
-    const questionId = SDK.Quiz("questionId");
+    SDK.User.loadCurrentUser((err, data) => {
+        let currentUser = JSON.parse(data);
+        if (currentUser.type === 2) {
+            $(".admin-display").show();
+        } else if (currentUser.type === 1) {
+            $(".user-display").show();
+        }
 
-    const SelectedQuestionTitle = SDK.Storage.load("SelectedQuestionTitle");
+    });
 
-    SDK.Quiz.loadQuestion() (quizId, questionId, SelectedQuestionTitle, (err, data)=> {
-        data = JSON.parse(data);
+    SDK.Quiz.loadQuestion((err, MyQuizzes)=> {
+        console.log(err, quizzes);
+        var quizzes = JSON.parse(MyQuizzes);
+
         if (err && err.xhr.status === 401) {
             $(".form-group").addClass("has-error");
         }else if (err) {

@@ -16,7 +16,7 @@ $(document).ready(() => {
 
     });
 
-    SDK.Course.loadCourses((err, myCourses) => {
+    SDK.Quiz.loadCourses((err, myCourses) => {
         console.log(err, courses);
         var courses = JSON.parse(myCourses);
         courses.forEach((course) =>  {

@@ -130,7 +130,6 @@ const SDK = {
                 });
         },
 
-    Course: {
         loadCourses: (cb) => {
             SDK.request({
                             method: "GET",
@@ -143,7 +142,6 @@ const SDK = {
                 cb(null, user);
             });
         },
-    },
     },
 
   User: {
