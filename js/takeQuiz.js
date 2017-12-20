@@ -15,7 +15,7 @@ $(document).ready(() => {
 
     });
     SDK.Quiz.loadQuestion((err, data) => {
-        if (err) throw err;
+        console.log(err, questions);
         const questions = JSON.parse(data);
         console.log(questions);
 

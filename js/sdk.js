@@ -215,8 +215,7 @@ const SDK = {
             else if (currentUser.type === 1){
                 $(".navbar-right").html(`
              <li><a href="profile.html">Din profil</a></li>
-             <li><a  href="courses.html">Opret quiz</a></li>
-             <li><a  href="courses.html">Slet quiz</a></li>
+             <li><a  href="courses.html">Opret/slet quiz</a></li>
              <li><a href="#" id="logout-link" onclick="SDK.User.logOut()">Logout</a> </li>
            
              `);
