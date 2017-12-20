@@ -216,7 +216,7 @@ const SDK = {
                 $(".navbar-right").html(`
              <li><a href="profile.html">Din profil</a></li>
              <li><a  href="courses.html">Opret quiz</a></li>
-             <li><a  href="CoursesQuizAdmin.html">Slet quiz</a></li>
+             <li><a  href="courses.html">Slet quiz</a></li>
              <li><a href="#" id="logout-link" onclick="SDK.User.logOut()">Logout</a> </li>
            
              `);

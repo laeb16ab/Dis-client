@@ -14,15 +14,30 @@ $(document).ready(() => {
         }
 
     });
-    SDK.Quiz.loadQuestion((err, MyQuestion) => {
-        console.log(err, questions);
-        var questions = JSON.parse(MyQuestion);
-        questions.forEach((question) => {
-            $("#takeQuizContainer").append('<button class="questionBtn btn-primary btn-lg" id=' + question.questionToQuizId + '>' + question.question + '</button>');
-            console.log(question.questionToQuizId);
-        });
+    SDK.Quiz.loadQuestion((err, data) => {
+        if (err) throw err;
+        const questions = JSON.parse(data);
         console.log(questions);
 
+
+        $("#quizTablehead").append("<thead>\n" +
+            "<th> Titel</th>\n" +
+
+            "</thead>");
+
+        $.each(questions, function (i, val) {
+            var tr = '<tr>';
+            tr += '<td width="80%">' + questions[i].question + '</td>';
+            tr += '<td width="20%"><button class="takeQuizBtn btn-primary btn-lg" data-key="' + (i+1) + '">Take quiz</button></td>';
+            tr += '</tr>';
+            i + 1;
+            $("#questionList").append(tr);
+        });
+        $(".takeQuizBtn").click(function () {
+            console.log(this.id);
+            window.location.href = "takeQuiz.html";
+
+        });
     });
 
 });
