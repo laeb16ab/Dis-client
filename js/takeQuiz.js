@@ -19,7 +19,7 @@ $(document).ready(() => {
         console.log(err, quizzes);
         var quizzes = JSON.parse(MyQuizzes);
 
-        if (err && err.xhr.status === 401) {
+        /** if (err && err.xhr.status === 401) {
             $(".form-group").addClass("has-error");
         }else if (err) {
             console.log("BAd stuff happened")
@@ -44,10 +44,10 @@ $(document).ready(() => {
                 });
                 i++;
             }
-                 **/
+
 
             }
-        }
+        }**/
 
 
     });
