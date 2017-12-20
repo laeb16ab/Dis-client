@@ -86,6 +86,17 @@ const SDK = {
                 cb(null, data);
             })
         },
+        loadQuestion: (quizId, cb) =>{
+            SDK.request({
+                method: "GET",
+                url: "/question/" + quizId,
+
+            }, (err, data) => {
+                if (err) return cb(err);
+                cb(null, data);
+            })
+        },
+},
         createOption: (option, optionToQuestionId, isCorrect, cb) => {
             SDK.request({
                 data: {
