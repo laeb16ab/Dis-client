@@ -102,18 +102,19 @@ const SDK = {
                 cb(null, data);
             })
         },
-        loadQuestion: (quizId, cb) => {
-            const MyQuizzes = SDK.Storage.load("MyQuizzes");
-            const quizId = MyQuizzes.quizId;
-
+        loadQuestion: (cb) => {
+            const quizId = SDK.Storage.load("MyQuizId");
             SDK.request({
                 method: "GET",
-                url: "/question/" + quizId,
-
+                url: "/question" + quizId,
+                headers: {
+                    authorization: SDK.Storage.load("token"),
+                },
             }, (err, data) => {
                 if (err) return cb(err);
                 cb(null, data);
-            })
+                console.log(data);
+            });
         },
         deleteQuiz: (cb) => {
             const MyQuizId = SDK.Storage.load("MyQuizId");
