@@ -23,14 +23,10 @@ $(document).ready(() => {
                     else if (err) {
                         console.log("error")
                     } else {
-                        let currentUser = JSON.parse(data);
-                        console.log(currentUser);
-                        if (currentUser.type === 1) {
-                            window.location.href = "indexAdmin.html";
-                        } else if (currentUser.type === 2) {
-                            window.location.href = "indexUser.html";
-                        }
+                        window.alert("\t" + "Sign up successful");
+                        window.location.href = "login.html"
                     }
+
                 });
 
             } else {
