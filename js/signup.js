@@ -10,7 +10,7 @@ $(document).ready(() => {
         const passwordVerifier = $("#PasswordVerifier").val();
 
         if (!newUsername || !newPassword || !passwordVerifier) {
-           //document.getElementById("emptyError").innerHTML = "Information missing";
+           alert("Information missing");
         }else {
             if (newPassword.valueOf() === passwordVerifier.valueOf()) {
                 console.log(newUsername);
@@ -30,7 +30,7 @@ $(document).ready(() => {
             } else {
                 $(newPassword).val('');
                 $(passwordVerifier).val('');
-                //  document.getElementById("empty error").innerHTML = "Password doens't match";
+                alert("Password not identical");
 
             }
         }

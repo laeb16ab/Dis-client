@@ -206,7 +206,6 @@ const SDK = {
             if (currentUser.type === 2) {
                 $(".navbar-right").html(`
              <li><a href="profile.html">Din profil</a></li>
-             <li><a href="score.html">Score</a></li>
              <li><a href="courses.html">Fag</a></li>
              <li><a href="#" id="logout-link" onclick="SDK.User.logOut()">Logout</a> </li>
              
