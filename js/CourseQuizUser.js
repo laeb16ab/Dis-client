@@ -24,7 +24,11 @@ $(document).ready(() => {
         $(".takeQuizBtn").click(function () {
             console.log(this.id);
             window.location.href = "takeQuiz.html";
+        });
 
+        $("#cancel-button").click(()=> {
+            window.location.href=("indexUser.html");
+            console.log("clicked");
         });
 
     });

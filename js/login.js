@@ -29,14 +29,18 @@ $(document).ready(() => {
                             let currentUser = JSON.parse(data);
                             console.log(currentUser);
                             if (currentUser.type === 1) {
-                               window.location.href = "index.html";
+                               window.location.href = "indexAdmin.html";
                             } else if (currentUser.type === 2) {
-                              window.location.href = "index.html";
+                              window.location.href = "indexUser.html";
                             }
                         }
                     });
                 }
             });
         }
+    });
+    $("#cancel-button").click(()=> {
+    window.location.href=("index.html");
+    console.log("clicked");
     });
 });

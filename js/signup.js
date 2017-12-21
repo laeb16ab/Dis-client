@@ -23,7 +23,13 @@ $(document).ready(() => {
                     else if (err) {
                         console.log("error")
                     } else {
-                        window.location.href = "index.html";
+                        let currentUser = JSON.parse(data);
+                        console.log(currentUser);
+                        if (currentUser.type === 1) {
+                            window.location.href = "indexAdmin.html";
+                        } else if (currentUser.type === 2) {
+                            window.location.href = "indexUser.html";
+                        }
                     }
                 });
 
@@ -37,9 +43,8 @@ $(document).ready(() => {
 
         });
     $("#cancel-button").click(()=> {
+        window.location.href=("index.html");
         console.log("clicked");
-
-        window.location.href = "index.html";
-    })
+    });
 
     });

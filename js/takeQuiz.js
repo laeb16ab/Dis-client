@@ -38,6 +38,12 @@ $(document).ready(() => {
             window.location.href = "takeQuiz.html";
 
         });
+
+    });
+
+    $("#cancelBtn").click(()=> {
+        window.location.href=("courses.html");
+        console.log("clicked");
     });
 
 });

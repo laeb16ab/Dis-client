@@ -2,12 +2,11 @@
 <html lang="en">
 <head>
 
-
     <link rel="stylesheet" href="lib/css/bootstrap.css">
     <link rel="stylesheet" href="css/main.css">
 
     <meta charset="UTF-8">
-    <title>DØK eksamens Quiz 2017</title>
+    <title>DØK eksamens quiz</title>
 
 </head>
 <body>
@@ -19,13 +18,12 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="jumbotron">
-                <h2 class="display-3">Vælg et fag at oprette en quiz i</h2>
-                <p class="lead"></p>
+                <h1 class="display-3">Velkommen til DØK quiz</h1>
                 <hr class="my-4">
-                <p class="lead" id="courseContainer"></p>
-
-                <button style="margin-bottom: 40px" class="btn btn-default" id="cancel-button" href="index.html">Cancel</button>
-
+                <p></p>
+                <p class="lead">
+                <p>Velkommen til bruger siden. Her kan du tage quizzes, se din samlede score og blive klar til eksamen.</p>
+                </p>
             </div>
 
         </div>
@@ -41,9 +39,10 @@
 <script src="lib/js/jquery-3.2.1.js"></script>
 <script src="lib/js/bootstrap.js"></script>
 <script src="js/sdk.js"></script>
-<script src="js/courses.js"></script>
-
-
+<script src="js/login.js"></script>
+<script>
+    SDK.User.loadNav();
+</script>
 
 </body>
 </html>

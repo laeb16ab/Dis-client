@@ -9,6 +9,6 @@ $(document).ready(() => {
 
 
     //Display username
-    $(".page-header").html(`<h2>${currentUser.username}</h2>`);
+    $(".page-header").html(`<h2>${"Velkommen:       " + currentUser.username}</h2>`);
 
 });
